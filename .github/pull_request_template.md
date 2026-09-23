@@ -25,4 +25,3 @@ npm start
 - [ ] Os cenários de erro têm resposta e log adequados?
 - [ ] Os testes cobrem as regras mais importantes?
 - [ ] Nenhum dado sensível foi incluído?
-

@@ -11,7 +11,6 @@ beforeEach(() => {
   clientes.length = 0;
   pedidos.length = 0;
 });
-
 test('calcula subtotal de vários itens', () => {
   const subtotal = calcularSubtotal([
     { preco: 10, quantidade: 2 },
@@ -46,4 +45,3 @@ test('rejeita cliente inexistente e item inválido', () => {
     /Preço e quantidade/
   );
 });
-

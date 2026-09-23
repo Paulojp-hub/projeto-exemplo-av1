@@ -5,4 +5,3 @@ export class ErroAplicacao extends Error {
     this.statusHttp = statusHttp;
   }
 }
-

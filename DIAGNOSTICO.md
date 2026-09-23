@@ -69,4 +69,3 @@ cliente aparecia duas vezes. Após a refatoração, ele fica centralizado em uma
 4. Representar descontos com uma tabela de percentuais.
 5. Adicionar erros de domínio, middleware HTTP e logs estruturados.
 6. Cobrir as regras críticas com testes automatizados.
-

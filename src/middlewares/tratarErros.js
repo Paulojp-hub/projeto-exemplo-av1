@@ -18,4 +18,3 @@ export function tratarErros(erro, requisicao, resposta, proximo) {
 
   resposta.status(statusHttp).json({ erro: mensagemPublica });
 }
-

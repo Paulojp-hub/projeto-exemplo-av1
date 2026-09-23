@@ -7,8 +7,6 @@ test('calcula os percentuais de desconto conhecidos', () => {
   assert.equal(calcularDesconto('blackfriday', 100), 30);
   assert.equal(calcularDesconto('aniversario', 100), 15);
 });
-
 test('não aplica desconto quando o tipo é desconhecido', () => {
   assert.equal(calcularDesconto('inexistente', 100), 0);
 });
-

@@ -9,7 +9,6 @@ export function validarNomeCliente(nome) {
 
   return nomeNormalizado;
 }
-
 export function validarIdCliente(idInformado) {
   const clienteId = Number(idInformado);
 
@@ -19,4 +18,3 @@ export function validarIdCliente(idInformado) {
 
   return clienteId;
 }
-
