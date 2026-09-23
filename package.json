@@ -1,14 +1,22 @@
 {
   "name": "projeto-exemplo-av1",
   "version": "1.0.0",
-  "description": "Projeto de exemplo (AV1) para quem não tiver um projeto próprio",
+  "description": "API de pedidos com testes automatizados e integração contínua",
   "type": "module",
-  "main": "src/app.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/app.js",
-    "test": "node --test"
+    "start": "node src/server.js",
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-exclude=src/server.js --test-coverage-lines=60",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "eslint": "10.11.0",
+    "prettier": "3.9.9"
   }
 }

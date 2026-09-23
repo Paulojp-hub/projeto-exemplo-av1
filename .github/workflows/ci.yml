@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: ['main', 'av2/**']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  qualidade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Verificar lint
+        run: npm run lint
+
+      - name: Verificar formatação
+        run: npm run format:check
+
+      - name: Executar testes e cobertura mínima de 60%
+        run: npm run coverage

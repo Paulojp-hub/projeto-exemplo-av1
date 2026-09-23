@@ -23,11 +23,7 @@ test('calcula subtotal de vários itens', () => {
 test('processa pedido com desconto e frete', () => {
   clientes.push({ id: 1, nome: 'Maria', email: 'maria@example.com' });
 
-  const pedido = processarPedido(
-    1,
-    [{ preco: 100, quantidade: 1 }],
-    'natal'
-  );
+  const pedido = processarPedido(1, [{ preco: 100, quantidade: 1 }], 'natal');
 
   assert.equal(pedido.total, 105);
   assert.equal(pedidos.length, 1);
