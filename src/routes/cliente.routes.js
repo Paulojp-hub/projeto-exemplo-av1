@@ -1,11 +1,16 @@
 import express from 'express';
-import { criar, atualizar, listar, buscarPorId } from '../controllers/cliente.controller.js';
+import {
+  atualizarCliente,
+  buscarClientePorId,
+  criarCliente,
+  listarClientes
+} from '../controllers/cliente.controller.js';
 
 const router = express.Router();
 
-router.get('/', listar);
-router.get('/:id', buscarPorId);
-router.post('/', criar);
-router.put('/:id', atualizar);
+router.get('/', listarClientes);
+router.get('/:id', buscarClientePorId);
+router.post('/', criarCliente);
+router.put('/:id', atualizarCliente);
 
 export default router;

@@ -1,33 +1,43 @@
 import { clientes } from '../data/clientes.js';
+import { ErroAplicacao } from '../errors/ErroAplicacao.js';
+import { validarIdCliente, validarNomeCliente } from '../validators/clienteValidator.js';
 
-export function criar(req, res) {
-  const n = req.body.nome;
-  if (!n || n.length < 3) {
-    return res.status(400).json({ erro: 'Nome muito curto' });
+function buscarCliente(clienteId) {
+  const clienteEncontrado = clientes.find(cliente => cliente.id === clienteId);
+
+  if (!clienteEncontrado) {
+    throw new ErroAplicacao('Cliente não encontrado', 404);
   }
-  const c = { id: clientes.length + 1, nome: n, email: req.body.email };
-  clientes.push(c);
-  res.status(201).json(c);
+
+  return clienteEncontrado;
 }
 
-export function atualizar(req, res) {
-  const n = req.body.nome;
-  if (!n || n.length < 3) {
-    return res.status(400).json({ erro: 'Nome muito curto' });
-  }
-  const id = Number(req.params.id);
-  const c = clientes.find(x => x.id === id);
-  c.nome = n;
-  c.email = req.body.email;
-  res.json(c);
+export function criarCliente(requisicao, resposta) {
+  const nome = validarNomeCliente(requisicao.body.nome);
+  const novoCliente = {
+    id: clientes.length + 1,
+    nome,
+    email: requisicao.body.email
+  };
+
+  clientes.push(novoCliente);
+  resposta.status(201).json(novoCliente);
 }
 
-export function listar(req, res) {
-  res.json(clientes);
+export function atualizarCliente(requisicao, resposta) {
+  const clienteId = validarIdCliente(requisicao.params.id);
+  const clienteEncontrado = buscarCliente(clienteId);
+
+  clienteEncontrado.nome = validarNomeCliente(requisicao.body.nome);
+  clienteEncontrado.email = requisicao.body.email;
+  resposta.json(clienteEncontrado);
 }
 
-export function buscarPorId(req, res) {
-  const id = Number(req.params.id);
-  const c = clientes.find(x => x.id === id);
-  res.json(c);
+export function listarClientes(requisicao, resposta) {
+  resposta.json(clientes);
+}
+
+export function buscarClientePorId(requisicao, resposta) {
+  const clienteId = validarIdCliente(requisicao.params.id);
+  resposta.json(buscarCliente(clienteId));
 }
