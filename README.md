@@ -33,14 +33,14 @@ validações de cliente, subtotal, processamento de pedido e cenários de erro.
 
 ## Endpoints
 
-| Método | Rota | Finalidade |
-| --- | --- | --- |
-| `GET` | `/clientes` | Listar clientes |
-| `GET` | `/clientes/:id` | Buscar um cliente |
-| `POST` | `/clientes` | Criar um cliente |
-| `PUT` | `/clientes/:id` | Atualizar um cliente |
-| `GET` | `/pedidos` | Listar pedidos |
-| `POST` | `/pedidos` | Criar um pedido |
+| Método | Rota            | Finalidade           |
+| ------ | --------------- | -------------------- |
+| `GET`  | `/clientes`     | Listar clientes      |
+| `GET`  | `/clientes/:id` | Buscar um cliente    |
+| `POST` | `/clientes`     | Criar um cliente     |
+| `PUT`  | `/clientes/:id` | Atualizar um cliente |
+| `GET`  | `/pedidos`      | Listar pedidos       |
+| `POST` | `/pedidos`      | Criar um pedido      |
 
 Exemplo de cliente:
 
@@ -57,9 +57,7 @@ Exemplo de pedido:
 {
   "clienteId": 1,
   "tipoDesconto": "natal",
-  "itens": [
-    { "preco": 100, "quantidade": 2 }
-  ]
+  "itens": [{ "preco": 100, "quantidade": 2 }]
 }
 ```
 

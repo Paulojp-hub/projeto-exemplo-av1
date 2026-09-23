@@ -5,10 +5,12 @@ import { ErroAplicacao } from '../errors/ErroAplicacao.js';
 import { logger } from '../config/logger.js';
 import { validarIdCliente } from '../validators/clienteValidator.js';
 
-export const TAXA_FRETE = 15.00;
+export const TAXA_FRETE = 15.0;
 
 function buscarCliente(clienteId) {
-  const clienteEncontrado = clientes.find(cliente => cliente.id === clienteId);
+  const clienteEncontrado = clientes.find(
+    (cliente) => cliente.id === clienteId
+  );
 
   if (!clienteEncontrado) {
     throw new ErroAplicacao('Cliente não encontrado', 404);
@@ -22,22 +24,26 @@ function validarItens(itens) {
     throw new ErroAplicacao('O pedido deve conter pelo menos um item', 400);
   }
 
-  const possuiItemInvalido = itens.some(item => (
-    !Number.isFinite(item?.preco)
-    || item.preco < 0
-    || !Number.isInteger(item?.quantidade)
-    || item.quantidade <= 0
-  ));
+  const possuiItemInvalido = itens.some(
+    (item) =>
+      !Number.isFinite(item?.preco) ||
+      item.preco < 0 ||
+      !Number.isInteger(item?.quantidade) ||
+      item.quantidade <= 0
+  );
 
   if (possuiItemInvalido) {
-    throw new ErroAplicacao('Preço e quantidade dos itens devem ser válidos', 400);
+    throw new ErroAplicacao(
+      'Preço e quantidade dos itens devem ser válidos',
+      400
+    );
   }
 }
 
 export function calcularSubtotal(itens) {
   validarItens(itens);
   return itens.reduce(
-    (subtotal, item) => subtotal + (item.preco * item.quantidade),
+    (subtotal, item) => subtotal + item.preco * item.quantidade,
     0
   );
 }

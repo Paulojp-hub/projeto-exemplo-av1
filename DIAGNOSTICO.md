@@ -50,12 +50,12 @@ esse arquivo, ignora qualquer `.env` desde o primeiro commit e fornece apenas
 
 Complexidade ciclomática foi estimada pela regra `1 + número de decisões`:
 
-| Função original | Decisões | Complexidade estimada |
-| --- | ---: | ---: |
-| `processarPedido` | 1 laço `for` | 2 |
-| `calcularDesconto` | 3 condições `if` | 4 |
-| `criar` cliente | 1 condição `if` | 2 |
-| `atualizar` cliente | 1 condição `if` | 2 |
+| Função original     |         Decisões | Complexidade estimada |
+| ------------------- | ---------------: | --------------------: |
+| `processarPedido`   |     1 laço `for` |                     2 |
+| `calcularDesconto`  | 3 condições `if` |                     4 |
+| `criar` cliente     |  1 condição `if` |                     2 |
+| `atualizar` cliente |  1 condição `if` |                     2 |
 
 Também havia um ponto de duplicação direta: o bloco de validação do nome do
 cliente aparecia duas vezes. Após a refatoração, ele fica centralizado em uma

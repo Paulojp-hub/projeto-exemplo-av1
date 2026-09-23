@@ -5,9 +5,8 @@ export function tratarErros(erro, requisicao, resposta, proximo) {
   void proximo;
 
   const statusHttp = erro instanceof ErroAplicacao ? erro.statusHttp : 500;
-  const mensagemPublica = statusHttp === 500
-    ? 'Erro interno do servidor'
-    : erro.message;
+  const mensagemPublica =
+    statusHttp === 500 ? 'Erro interno do servidor' : erro.message;
 
   logger.erro('Falha ao processar requisição', {
     metodo: requisicao.method,
