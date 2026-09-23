@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: API de Pedidos
+  version: 2.0.0
+  description: API usada no projeto integrador da AV2.
+servers:
+  - url: http://localhost:3000
+paths:
+  /clientes:
+    post:
+      summary: Cadastra um cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovoCliente'
+      responses:
+        '201':
+          description: Cliente cadastrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Nome inválido
+          content:
+            application/json:
+              example:
+                erro: Nome deve ter pelo menos 3 caracteres
+  /pedidos:
+    post:
+      summary: Cria um pedido para um cliente existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NovoPedido'
+      responses:
+        '201':
+          description: Pedido criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              example:
+                erro: Cliente não encontrado
+components:
+  schemas:
+    NovoCliente:
+      type: object
+      required: [nome]
+      properties:
+        nome:
+          type: string
+          example: Maria Silva
+        email:
+          type: string
+          format: email
+          example: maria@example.com
+    Cliente:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+        - $ref: '#/components/schemas/NovoCliente'
+    Item:
+      type: object
+      required: [preco, quantidade]
+      properties:
+        preco:
+          type: number
+          example: 100
+        quantidade:
+          type: integer
+          minimum: 1
+          example: 1
+    NovoPedido:
+      type: object
+      required: [clienteId, itens]
+      properties:
+        clienteId:
+          type: integer
+          example: 1
+        tipoDesconto:
+          type: string
+          enum: [natal, blackfriday, aniversario]
+          example: natal
+        itens:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Item'
+    Pedido:
+      allOf:
+        - $ref: '#/components/schemas/NovoPedido'
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            total:
+              type: number
+              example: 105
+            data:
+              type: string
+              format: date-time

@@ -1,16 +1,20 @@
-# API de pedidos — AV1 de qualidade e refatoração
+# API de pedidos — AV2
+
+[![CI](https://github.com/Paulojp-hub/projeto-exemplo-av1/actions/workflows/ci.yml/badge.svg)](https://github.com/Paulojp-hub/projeto-exemplo-av1/actions/workflows/ci.yml)
 
 API REST simples para cadastrar clientes e processar pedidos com desconto e
-frete. Este repositório usa o projeto-exemplo da disciplina como base para um
-diagnóstico de qualidade, uma refatoração orientada a Clean Code e a prática de
-um fluxo Git com branch e commits atômicos.
+frete. A AV2 acrescenta testes unitários e de integração, cobertura mínima e um
+pipeline de integração contínua.
 
-## Requisitos
+## Tecnologias
 
-- Node.js 20 ou superior
-- npm
+- Node.js 22
+- Express 4
+- Test runner e cobertura nativos do Node.js
+- ESLint e Prettier
+- GitHub Actions
 
-## Como executar localmente
+## Como executar
 
 ```bash
 npm install
@@ -18,18 +22,26 @@ copy .env.example .env
 npm start
 ```
 
-No Linux ou macOS, substitua o segundo comando por
-`cp .env.example .env`. Por padrão, a API fica disponível em
-`http://localhost:3000`.
+No Linux ou macOS, use `cp .env.example .env`. Por padrão, a API fica em
+`http://localhost:3000`. A variável `PORT` permite escolher outra porta.
 
-## Como executar os testes
+## Testes e qualidade
 
 ```bash
-npm test
+npm test              # testes unitários e de integração
+npm run coverage      # testes com limite mínimo de 60% nas linhas
+npm run lint          # análise estática com ESLint
+npm run format:check  # conferência de formatação com Prettier
 ```
 
-A suíte usa o executor de testes nativo do Node.js e cobre descontos,
-validações de cliente, subtotal, processamento de pedido e cenários de erro.
+A suíte tem cenários de sucesso e erro nas regras de negócio. O teste de
+integração inicia a aplicação em uma porta temporária e percorre rotas HTTP
+reais para cadastrar um cliente, criar um pedido e validar uma resposta 404.
+Na validação local desta versão, a cobertura total de linhas foi de **93,36%**.
+
+O workflow em `.github/workflows/ci.yml` executa instalação limpa, lint,
+formatação, testes e cobertura em cada push da AV2 e em cada Pull Request para
+`main`.
 
 ## Endpoints
 
@@ -62,26 +74,25 @@ Exemplo de pedido:
 ```
 
 Os tipos de desconto reconhecidos são `natal`, `blackfriday` e `aniversario`.
+A especificação OpenAPI, com exemplos de sucesso e erro, está em
+[`docs/openapi.yaml`](docs/openapi.yaml).
 
-## Melhorias realizadas
+## Estrutura principal
 
-- Variáveis e funções vagas foram renomeadas para explicitar a intenção.
-- A validação de nome e ID de cliente foi centralizada e reutilizada.
-- O processamento de pedido foi dividido em validação, cálculo, criação,
-  persistência e notificação.
-- A cadeia de condicionais de desconto foi substituída por uma tabela de regras.
-- Clientes, IDs e itens inválidos agora geram erros de domínio explícitos.
-- Um middleware converte falhas em respostas HTTP previsíveis e registra logs
-  estruturados sem expor detalhes internos ao cliente.
-- Testes automatizados protegem as regras críticas.
-- `.env` e outros arquivos locais são ignorados desde o primeiro commit; nenhum
-  segredo faz parte do histórico.
+```text
+projeto-exemplo-av1/
+├── .github/workflows/ci.yml
+├── docs/openapi.yaml
+├── src/
+├── test/
+├── eslint.config.js
+├── package.json
+└── README.md
+```
 
-O levantamento completo dos problemas originais e das métricas estimadas está
-em [DIAGNOSTICO.md](DIAGNOSTICO.md).
+## Histórico do projeto
 
-## Fluxo Git adotado
-
-- `main`: código original preservado como base.
-- `refactor/limpeza-codigo`: diagnóstico, refatoração, testes e documentação.
-- Commits separados por intenção para facilitar revisão e reversão.
+A refatoração da AV1 foi mesclada na `main` pela PR #1. O diagnóstico original
+de code smells e métricas está em [`DIAGNOSTICO.md`](DIAGNOSTICO.md). As
+mudanças da AV2 foram desenvolvidas na branch `av2/testes-ci` em commits
+separados por responsabilidade.
