@@ -1,12 +1,10 @@
-export function calcularDesconto(tipo, valor) {
-  if (tipo === 'natal') {
-    return valor * 0.1;
-  }
-  if (tipo === 'blackfriday') {
-    return valor * 0.3;
-  }
-  if (tipo === 'aniversario') {
-    return valor * 0.15;
-  }
-  return 0;
+const PERCENTUAIS_DE_DESCONTO = Object.freeze({
+  natal: 0.1,
+  blackfriday: 0.3,
+  aniversario: 0.15
+});
+
+export function calcularDesconto(tipoDesconto, subtotal) {
+  const percentual = PERCENTUAIS_DE_DESCONTO[tipoDesconto] ?? 0;
+  return subtotal * percentual;
 }
