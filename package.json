@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Projeto de exemplo (AV1) para quem não tiver um projeto próprio",
   "type": "module",
-  "main": "src/app.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/server.js",
     "test": "node --test"
   },
   "dependencies": {

@@ -10,9 +10,4 @@ app.use('/clientes', clienteRoutes);
 app.use('/pedidos', pedidoRoutes);
 app.use(tratarErros);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log('Servidor rodando na porta ' + PORT);
-});
-
 export default app;
