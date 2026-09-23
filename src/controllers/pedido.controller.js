@@ -1,11 +1,12 @@
 import { processarPedido, listarPedidos } from '../services/pedidoService.js';
 
-export function criar(req, res) {
-  const { clienteId, itens, tipoDesconto } = req.body;
+export function criarPedido(requisicao, resposta) {
+  const { clienteId, itens, tipoDesconto } = requisicao.body;
   const pedido = processarPedido(clienteId, itens, tipoDesconto);
-  res.status(201).json(pedido);
+  resposta.status(201).json(pedido);
 }
 
-export function listar(req, res) {
-  res.json(listarPedidos());
+export function listarPedidosCadastrados(requisicao, resposta) {
+  void requisicao;
+  resposta.json(listarPedidos());
 }
